@@ -10,13 +10,36 @@
 # TARGETS:
 #   asio
 
-find_package(Threads REQUIRED QUIET)
-
 if(NOT TARGET asio)
-  add_library(asio INTERFACE)
-  target_include_directories(asio INTERFACE
-    ${CMAKE_CURRENT_LIST_DIR}/../../asio/asio/include
-  )
-  target_compile_definitions(asio INTERFACE -DASIO_STANDALONE)
-  target_link_libraries(asio INTERFACE Threads::Threads)
+  find_package(Threads QUIET)
+  if(NOT Threads_FOUND)
+    if(ASIO_FIND_REQUIRED)
+      message(FATAL_ERROR "ASIO requires thread support, but it wasn't found.")
+    else()
+      if(ASIO_FIND_QUIETLY)
+        message(STATUS "ASIO requires thread support, but it wasn't found.")
+      endif()
+    endif()
+    set(ASIO_FOUND FALSE)
+  else()
+    find_path(ASIO_ROOT include/asio.hpp
+      PATHS
+        ${CMAKE_CURRENT_LIST_DIR}/../../asio/asio
+        ${CMAKE_CURRENT_LIST_DIR}/../../asio
+    )
+    if(NOT ASIO_ROOT)
+      if(ASIO_FIND_REQUIRED)
+        message(FATAL_ERROR "ASIO headers could not be found.")
+      else()
+        if(ASIO_FIND_QUIETLY)
+          message(STATUS "ASIO headers could not be found.")
+        endif()
+      endif()
+    else()
+      add_library(asio INTERFACE)
+      target_include_directories(asio INTERFACE ${ASIO_ROOT}/include)
+      target_compile_definitions(asio INTERFACE -DASIO_STANDALONE)
+      target_link_libraries(asio INTERFACE Threads::Threads)
+    endif()
+  endif()
 endif()
