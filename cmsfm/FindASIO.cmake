@@ -10,7 +10,11 @@
 # TARGETS:
 #   asio
 
-if(NOT TARGET asio)
+set(ASIO_FOUND FALSE)
+
+if(TARGET asio)
+  set(ASIO_FOUND TRUE)
+else()
   find_package(Threads QUIET)
   if(NOT Threads_FOUND)
     if(ASIO_FIND_REQUIRED)
@@ -40,6 +44,7 @@ if(NOT TARGET asio)
       target_include_directories(asio INTERFACE ${ASIO_ROOT}/include)
       target_compile_definitions(asio INTERFACE -DASIO_STANDALONE)
       target_link_libraries(asio INTERFACE Threads::Threads)
+      set(ASIO_FOUND TRUE)
     endif()
   endif()
 endif()
