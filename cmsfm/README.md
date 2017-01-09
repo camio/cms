@@ -4,8 +4,6 @@
 
 **MNEMONIC:** CMake Support Find Modules (cmsfm)
 
-**AUTHOR:** David Sankel (dsankel)
-
 ## Description
 
 The `cmsfm` package provides CMake Find Modules for several third-party

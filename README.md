@@ -4,8 +4,6 @@
 
 **MNEMONIC:** CMake Support (cms)
 
-**AUTHOR:** David Sankel (dsankel)
-
 ## Description
 
 The `cms` ("CMake support") package group contains CMake packages that support
