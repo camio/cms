@@ -29,3 +29,13 @@ The `cmsfm` package provides CMake Find Modules for several third-party
 packages. These modules enable CMake projects to use these third-party
 packages. This package is intended to compiliment the Find Modules that are
 already included in the CMake distribution.
+
+## Target conventions
+
+TODO: Document the additional conventions that go beyond cmake. In particular,
+we can use a convention that a target name can bring with it, as a property, a
+list of module paths that it provides for use in the `include` command
+( `CMAKE_MODULE_PATH` property includes assets and all (including transitive)
+dependencies. )
+
+TODO: Document what you'd expect for imports in a package group, package, etc.
